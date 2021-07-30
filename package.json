@@ -1,0 +1,19 @@
+{
+  "name": "token-exporter",
+  "version": "1.0.0",
+  "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "auth",
+    "token"
+  ],
+  "author": "Todd Trimmer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e11community/token-exporter/issues"
+  },
+  "homepage": "https://github.com/e11community/token-exporter#readme"
+}

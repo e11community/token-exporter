@@ -1,8 +1,8 @@
-export function toEnvarCase(s: string) {
+export function toEnvarCase(s: string): string {
   var c = null
   var p = null
-  const words = []
-  var buf = ''
+  const words: string[] = []
+  let buf: string = ''
 
   for (var i = 0; i < s.length; ++i) {
     c = s[i]

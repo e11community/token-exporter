@@ -1,7 +1,7 @@
-const os = require('os')
-const fs = require('fs')
-const path = require('path')
-const str = require('./strings.js')
+import os = require('os')
+import fs = require('fs')
+import path = require('path')
+import str = require('./strings.js')
 
 function findTokensFromNpmrc() {
   const npmrcPath = path.join(os.homedir(), '.npmrc')
@@ -23,7 +23,7 @@ function findTokensFromNpmrc() {
     if (registrySeek.length > 0) {
       var key = registrySeek[0][1]
       var location = registrySeek[0][2]
-      registries[location] = { key: key, location: location }
+      registries[location] = { key, location }
       if (locations[location]) {
         registries[location].token = locations[location].token
       }
@@ -37,7 +37,7 @@ function findTokensFromNpmrc() {
           var existingRegistry = registries[location]
           existingRegistry.token = token
         } else {
-          locations[location] = { token: token }
+          locations[location] = { token }
         }
       }
     } 
@@ -47,7 +47,7 @@ function findTokensFromNpmrc() {
 }
 
 function generateExportScript(registries) {
-  for (location in registries) {
+  for (var location in registries) {
     if (registries[location].token) {
       const envarKey = str.toEnvarCase(registries[location].key)
       console.log('export ' + envarKey + '_NPM_AUTH_TOKEN=' + registries[location].token)
@@ -55,8 +55,6 @@ function generateExportScript(registries) {
   }
 }
 
-function findAndGenerate() {
+export function findAndGenerate() {
   generateExportScript(findTokensFromNpmrc())
 }
-
-module.exports = findAndGenerate

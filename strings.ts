@@ -1,4 +1,4 @@
-function toEnvarCase(s) {
+export function toEnvarCase(s: string) {
   var c = null
   var p = null
   const words = []
@@ -42,5 +42,3 @@ function toEnvarCase(s) {
 
   return words.join('_')
 }
-
-module.exports = { toEnvarCase }

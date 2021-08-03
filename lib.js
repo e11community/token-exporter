@@ -1,6 +1,7 @@
 const os = require('os')
 const fs = require('fs')
 const path = require('path')
+const str = require('./strings.js')
 
 function findTokensFromNpmrc() {
   const npmrcPath = path.join(os.homedir(), '.npmrc')
@@ -45,40 +46,10 @@ function findTokensFromNpmrc() {
   return registries
 }
 
-function toEnvarCase(s) {
-  var c = null
-  const words = [s.toUpperCase()] // change
-  var buf = ''
-  var capture = false
-
-  for (var i = 0; i < s.length; ++i) {
-    /*
-    c = s[i]
-    if (c >= a && c <= z) {
-      if (capture) {
-        capture = false
-      }
-      buf += c
-    } else {
-      if (capture) {
-      }
-      else
-      {
-        words += buf
-        buf = ''
-        capture = false
-      }
-    }
-    */
-  }
-
-  return words.join('_')
-}
-
 function generateExportScript(registries) {
   for (location in registries) {
     if (registries[location].token) {
-      const envarKey = toEnvarCase(registries[location].key)
+      const envarKey = str.toEnvarCase(registries[location].key)
       console.log('export ' + envarKey + '_NPM_AUTH_TOKEN=' + registries[location].token)
     }
   }

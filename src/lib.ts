@@ -49,7 +49,7 @@ function findTokensFromNpmrc(): Map<string, Registry> {
         (<Registry>registries.get(location)).token = (<LocationRef>locations.get(location)).token
       }
     } else {
-      let tokenSeek: string[][] = [...line.matchAll(/^([^:]+):_authToken=([a-f0-9]+)/g)]
+      let tokenSeek: string[][] = [...line.matchAll(/^([^:]+):_authToken=(.+)$/g)]
 
       if (tokenSeek.length > 0) {
         let location: string = tokenSeek[0][1]

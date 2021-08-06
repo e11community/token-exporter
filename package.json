@@ -2,9 +2,24 @@
   "name": "token-exporter",
   "version": "1.0.0",
   "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
-  "main": "index.js",
+  "main": "lib.js",
+  "bin": {
+    "export-tokens": "./export-tokens.js"
+  },
   "scripts": {
-    "test": "node test.js"
+    "test": "jest",
+    "atest": "jest ${0}",
+    "test:coverage": "jest --coverage",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "fix": "gts fix",
+    "version": "yarn version",
+    "publish": "yarn npm publish",
+    "prepack": "yarn run clean && yarn run build",
+    "pretest": "yarn run build",
+    "posttest": "yarn run lint"
   },
   "keywords": [
     "auth",

@@ -1,11 +1,13 @@
-node_modules
 build/
-*.tgz
 *.log
+node_modules
+.npmrc
+package-lock.json
+.pnp.*
+*.tgz
 .yarn/*
 !.yarn/patches
-!.yarn/releases
 !.yarn/plugins
+!.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.pnp.*

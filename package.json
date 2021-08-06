@@ -8,7 +8,8 @@
     "build/src/**/*"
   ],
   "bin": {
-    "export-tokens": "./export-tokens.js"
+    "export-tokens": "./export-tokens.js",
+    "write-local-npmrc": "./write-local-npmrc.js"
   },
   "scripts": {
     "atest": "jest ${0}",

@@ -2,6 +2,7 @@ import os = require('os')
 import fs = require('fs')
 import path = require('path')
 import str = require('./string.js')
+import { Writable } from 'stream'
 
 export class Registry {
   key: string
@@ -73,6 +74,19 @@ function generateExportScript(registries: Map<string, Registry>): void {
       console.log(`export ${envarKey}_NPM_AUTH_TOKEN='${registry.token}'`)
     }
   })
+}
+
+function writeNpmrc(registries: Map<string, Registry>, stream: Writable): void {
+  registries.forEach((registry: Registry) => {
+    if (registry.token && registry.token.length > 0) {
+      stream.write(`@${registry.key}:registry=https:${registry.location}\n`)
+      stream.write(`${registry.location}:_authToken=${registry.token}\n\n`)
+    }
+  })
+}
+
+export function writeLocalNpmrc(): void {
+  writeNpmrc(findTokensFromNpmrc(), fs.createWriteStream('./.npmrc'))
 }
 
 export function findAndGenerate(): void {

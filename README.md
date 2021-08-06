@@ -10,10 +10,13 @@ Find NPM auth tokens in **HOME/.npmrc** and export them as environment variables
 
 ## Shell setup
 
-In **HOME/.bashrc**, you have two options, and you *may do both* 
+In **HOME/.bashrc**, you have two options, and you *may do both*:
+
+1. Use the node package to dynamically generate a bash script to source
+2. Use your **personal access token** everywhere
 
 ```
-# OPTION 1: scoped tokens
+# OPTION 1: dynamically generated tokens
 if which export-tokens 2>&1 >/dev/null; then
   . <(export-tokens)
 fi
@@ -50,7 +53,7 @@ Given a **HOME/.npmrc** with redacted tokens:
 @engineering11:registry=https://npm.pkg.github.com/engineering11/
 //npm.pkg.github.com/engineering11/:_authToken=SecretForE11
 
-@e11community:registry=https://npm.pkg.github.com/
+@e11community:registry=https://npm.pkg.github.com/e11community/
 //npm.pkg.github.com/e11community/:_authToken=SecretForCommunity
 
 @bit:registry=https://node.bit.dev
@@ -65,10 +68,10 @@ registry=https://registry.npmjs.org/
 
 ## Expected Output
 
-The **export-tokens** command should produce this script:
+The **export-tokens** command *should* produce this script:
 
 ```
 export CNECT_NPM_AUTH_TOKEN='SecretForCNect'
 export ENGINEERING11_NPM_AUTH_TOKEN='SecretForE11'
-export E11COMMUNITY_NPM_AUTH_TOKEN='SecretForAllOfGitHub'
+export E11COMMUNITY_NPM_AUTH_TOKEN='SecretForCommunity'
 ```

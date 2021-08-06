@@ -1,7 +1,7 @@
 import os = require('os')
 import fs = require('fs')
 import path = require('path')
-import str = require('./strings.js')
+import str = require('./string.js')
 
 export class Registry {
   key: string

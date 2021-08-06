@@ -1,18 +1,26 @@
-export function toEnvarCase(s: string): string {
-  var c = null
-  var p = null
-  const words: string[] = []
-  let buf: string = ''
+export function isNumeral(s: string): boolean {
+  if (!s) {
+    return false
+  }
 
-  for (var i = 0; i < s.length; ++i) {
+  return s >= '0' && s <= '9'
+}
+
+export function toEnvarCase(s: string): string {
+  let c = null
+  let p = null
+  const words: string[] = []
+  let buf = ''
+
+  for (let i = 0; i < s.length; ++i) {
     c = s[i]
     if (c >= 'a' && c <= 'z') {
-      if (p != null) {
+      if (p !== null) {
         p = null
       }
       buf += c.toUpperCase()
     } else if (c >= 'A' && c <= 'Z') {
-      if (p == null) {
+      if (p === null && (i === 0 || !isNumeral(s[i - 1]))) {
         if (buf.length > 0) {
           words.push(buf)
         }
@@ -21,7 +29,7 @@ export function toEnvarCase(s: string): string {
         buf += c
       }
       p = c
-    } else if (c >= '0' && c <= '9'){
+    } else if (isNumeral(c)) {
       buf += c
     } else {
       if (buf.length > 0) {
@@ -30,7 +38,7 @@ export function toEnvarCase(s: string): string {
       } else {
         words.push('')
       }
-      if (p != null) {
+      if (p !== null) {
         p = null
       }
     }

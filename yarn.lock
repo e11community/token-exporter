@@ -51,6 +51,7 @@ __metadata:
     typescript: ^4.3.5
   bin:
     export-tokens: ./export-tokens.js
+    write-local-npmrc: ./write-local-npmrc.js
   languageName: unknown
   linkType: soft
 

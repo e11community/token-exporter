@@ -75,3 +75,21 @@ export CNECT_NPM_AUTH_TOKEN='SecretForCNect'
 export ENGINEERING11_NPM_AUTH_TOKEN='SecretForE11'
 export E11COMMUNITY_NPM_AUTH_TOKEN='SecretForCommunity'
 ```
+
+# Write Local .npmrc
+
+## Workflow for AppEngine Deploys
+```
+cd BACKEND_REPO/microservices/service-FOO/microservice/
+
+cat template.yaml | envsubst > app.yaml
+
+write-local-npmrc
+
+gcloud app deploy app.yaml --project=PROJECT_ID
+```
+
+## Notes
+
+* **DO** put **.npmrc** in **.gitignore**
+* Do **NOT** put **.npmrc** in **.gcloudignore**

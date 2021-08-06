@@ -1,8 +1,12 @@
 {
   "name": "@e11community/token-exporter",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
-  "main": "lib.js",
+  "main": "./build/src/lib.js",
+  "types": "./build/src/lib.d.ts",
+  "files": [
+    "build/src/**/*"
+  ],
   "bin": {
     "export-tokens": "./export-tokens.js"
   },
@@ -14,9 +18,11 @@
     "fix": "gts fix",
     "lint": "gts lint",
     "publish": "yarn npm publish",
+    "publish:dev": "yarn npm publish --tag dev",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "version": "yarn version",
+    "version:dev": "yarn version prerelease",
     "prepack": "yarn run clean && yarn run build",
     "pretest": "yarn run build",
     "posttest": "yarn run lint"

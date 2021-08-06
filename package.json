@@ -1,7 +1,7 @@
 {
   "name": "@e11community/token-exporter",
-  "version": "3.0.0",
-  "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
+  "version": "3.0.1",
+  "description": "Find NPM auth tokens in HOME/.npmrc and export them as environment variables",
   "main": "./build/src/lib.js",
   "types": "./build/src/lib.d.ts",
   "files": [

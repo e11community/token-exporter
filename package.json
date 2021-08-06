@@ -1,6 +1,6 @@
 {
   "name": "token-exporter",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
   "main": "lib.js",
   "bin": {

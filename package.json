@@ -1,22 +1,22 @@
 {
-  "name": "token-exporter",
-  "version": "2.0.0",
+  "name": "@e11community/token-exporter",
+  "version": "2.0.2",
   "description": "Find NPM auth tokens in HOME/.npmrc and exports them as environments variables",
   "main": "lib.js",
   "bin": {
     "export-tokens": "./export-tokens.js"
   },
   "scripts": {
-    "test": "jest",
     "atest": "jest ${0}",
-    "test:coverage": "jest --coverage",
-    "lint": "gts lint",
-    "clean": "gts clean",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "clean": "gts clean",
     "fix": "gts fix",
-    "version": "yarn version",
+    "lint": "gts lint",
     "publish": "yarn npm publish",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "version": "yarn version",
     "prepack": "yarn run clean && yarn run build",
     "pretest": "yarn run build",
     "posttest": "yarn run lint"
@@ -25,12 +25,18 @@
     "auth",
     "token"
   ],
-  "author": "Todd Trimmer",
+  "author": "Engineering 11",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/e11community/token-exporter/issues"
   },
-  "repository": "https://github.com/e11community/token-exporter",
+  "repository": {
+    "url": "https://github.com/e11community/token-exporter",
+    "type": "git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/e11community"
+  },
   "homepage": "https://github.com/e11community/token-exporter#readme",
   "devDependencies": {
     "gts": "^3.1.0",

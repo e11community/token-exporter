@@ -5,11 +5,12 @@
   "main": "./build/src/lib.js",
   "types": "./build/src/lib.d.ts",
   "files": [
-    "build/src/**/*"
+    "build/src/**/*",
+    "scripts/**/*"
   ],
   "bin": {
-    "export-tokens": "./export-tokens.js",
-    "write-local-npmrc": "./write-local-npmrc.js"
+    "npmrc-export": "./scripts/npmrc-export.js",
+    "npmrc-write-cwd": "./scripts/npmrc-write-cwd.js"
   },
   "scripts": {
     "atest": "jest ${0}",

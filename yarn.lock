@@ -50,8 +50,8 @@ __metadata:
     ts-node: ^10.1.0
     typescript: ^4.3.5
   bin:
-    export-tokens: ./export-tokens.js
-    write-local-npmrc: ./write-local-npmrc.js
+    npmrc-export: ./scripts/npmrc-export.js
+    npmrc-write-cwd: ./scripts/npmrc-write-cwd.js
   languageName: unknown
   linkType: soft
 

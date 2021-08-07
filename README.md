@@ -18,7 +18,7 @@ In **HOME/.bashrc**, you have two options, and you *may do both*:
 ```
 # OPTION 1: dynamically generated tokens
 if which export-tokens 2>&1 >/dev/null; then
-  . <(export-tokens)
+  . <(npmrc-export)
 fi
 
 # OPTION 2: personal access token
@@ -68,7 +68,7 @@ registry=https://registry.npmjs.org/
 
 ## Expected Output
 
-The **export-tokens** command *should* produce this script:
+The **npmrc-export** command *should* produce this script:
 
 ```
 export CNECT_NPM_AUTH_TOKEN='SecretForCNect'
@@ -84,7 +84,7 @@ cd BACKEND_REPO/microservices/service-FOO/microservice/
 
 cat template.yaml | envsubst > app.yaml
 
-write-local-npmrc
+npmrc-write-cwd
 
 gcloud app deploy app.yaml --project=PROJECT_ID
 ```

@@ -17,7 +17,7 @@ In **HOME/.bashrc**, you have two options, and you *may do both*:
 
 ```
 # OPTION 1: dynamically generated tokens
-if which export-tokens 2>&1 >/dev/null; then
+if which npmrc-export 2>&1 >/dev/null; then
   . <(npmrc-export)
 fi
 

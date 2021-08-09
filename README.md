@@ -47,18 +47,15 @@ npmScopes:
 
 Given a **HOME/.npmrc** with redacted tokens:
 ```
-@cnect:registry=https://npm.pkg.github.com/cnect/
-//npm.pkg.github.com/cnect/:_authToken=SecretForCNect
-
 @engineering11:registry=https://npm.pkg.github.com/engineering11/
 //npm.pkg.github.com/engineering11/:_authToken=SecretForE11
 
 @e11community:registry=https://npm.pkg.github.com/e11community/
 //npm.pkg.github.com/e11community/:_authToken=SecretForCommunity
 
-@bit:registry=https://node.bit.dev
+@bit:registry=https://node.bit.dev/
 //node.bitsrc.io/:_authToken=SecretForBitProd
-//node.bit.dev/:_authToken=SecretforBitDev
+//node.bit.dev/:_authToken=SecretForBitDev
 
 //npm.pkg.github.com/:_authToken=SecretForAllOfGitHub
 
@@ -68,12 +65,12 @@ registry=https://registry.npmjs.org/
 
 ## Expected Output
 
-The **npmrc-export** command *should* produce this script:
+The **npmrc-export | sort** command *should* produce this script:
 
 ```
-export CNECT_NPM_AUTH_TOKEN='SecretForCNect'
-export ENGINEERING11_NPM_AUTH_TOKEN='SecretForE11'
+export BIT_NPM_AUTH_TOKEN='SecretForBitDev'
 export E11COMMUNITY_NPM_AUTH_TOKEN='SecretForCommunity'
+export ENGINEERING11_NPM_AUTH_TOKEN='SecretForE11'
 ```
 
 # Write Local .npmrc
@@ -88,6 +85,8 @@ npmrc-write-cwd
 
 gcloud app deploy app.yaml --project=PROJECT_ID
 ```
+
+In **firebase.json**, in the **predeploy** array, put `npmrc-write-cwd`
 
 ## Notes
 

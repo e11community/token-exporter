@@ -76,6 +76,7 @@ export ENGINEERING11_NPM_AUTH_TOKEN='SecretForE11'
 # Write Local .npmrc
 
 ## Workflow for AppEngine Deploys
+**NOTE:** this is the _verbose_ way, without any scripts
 ```
 cd BACKEND_REPO/microservices/service-FOO/microservice/
 
@@ -86,7 +87,15 @@ npmrc-write-cwd
 gcloud app deploy app.yaml --project=PROJECT_ID
 ```
 
-In **firebase.json**, in the **predeploy** array, put `npmrc-write-cwd`
+## Workflow for Function Deploys
+**NOTE:** this is the _verbose_ way, without any scripts
+```
+cd BACKEND_REPO/microservices/service-FOO/functions/
+
+npmrc-write-cwd
+
+firebase deploy --only functions:FOO --project=PROJECT_ID
+```
 
 ## Notes
 

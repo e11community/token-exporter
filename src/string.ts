@@ -1,3 +1,5 @@
+import { miscUtils } from '@yarnpkg/core'
+
 export function isNumeral(s: string): boolean {
   if (!s) {
     return false
@@ -52,5 +54,7 @@ export function toEnvarCase(s: string): string {
 }
 
 export function resolveShellTemplate(s: string): string {
-  return ''
+  return miscUtils.replaceEnvVariables(s, {
+    env: process.env,
+  });
 }

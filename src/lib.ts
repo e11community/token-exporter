@@ -50,6 +50,15 @@ function findTokensFromYarnrc(yarnrcPath: string): Map<string, Registry> {
     for (let key in objYarnrc.npmScopes) {
       let urlTemplate = objYarnrc.npmScopes[key].npmRegistryServer
       let authTokenTemplate = objYarnrc.npmScopes[key].npmAuthToken
+
+      let urlResolved = str.resolveShellTemplate(urlTemplate)
+      let authTokenResolved = str.resolveShellTemplate(authTokenTemplate)
+
+      let location = urlResolved.substring(6)
+
+      let registry = new Registry(location, key)
+      registry.token = authTokenResolved
+      registries.set(key, registry)
     }
   }
 

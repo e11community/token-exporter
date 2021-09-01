@@ -50,3 +50,7 @@ export function toEnvarCase(s: string): string {
 
   return words.join('_')
 }
+
+export function resolveShellTemplate(s: string): string {
+  return ''
+}

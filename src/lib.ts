@@ -2,6 +2,7 @@ import os = require('os')
 import fs = require('fs')
 import path = require('path')
 import str = require('./string.js')
+import YAML = require('yaml')
 import { Writable } from 'stream'
 
 export class Registry {
@@ -23,6 +24,36 @@ export class LocationRef {
     this.location = location
     this.token = token
   }
+}
+
+function findTokensFromYarnrc(yarnrcPath: string): Map<string, Registry> {
+  if (!fs.existsSync(yarnrcPath)) {
+    console.error(`No .yarnrc.yml at [${yarnrcPath}]!`)
+    return new Map<string, Registry>()
+  }
+
+  const strYarnrc= fs.readFileSync(yarnrcPath, 'utf8')
+
+  // serialize env
+  let objYarnrc = null
+  try {
+    objYarnrc = YAML.parse(strYarnrc)
+  }
+  catch (error) {
+    console.error(`Could not YAML parse [${yarnrcPath}]`)
+    return new Map<string, Registry>()
+  }
+
+  const registries = new Map<string, Registry>()
+  
+  if (objYarnrc.npmScopes) {
+    for (let key in objYarnrc.npmScopes) {
+      let urlTemplate = objYarnrc.npmScopes[key].npmRegistryServer
+      let authTokenTemplate = objYarnrc.npmScopes[key].npmAuthToken
+    }
+  }
+
+  return registries
 }
 
 function findTokensFromNpmrc(): Map<string, Registry> {

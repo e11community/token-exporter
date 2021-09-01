@@ -10,6 +10,7 @@
   ],
   "bin": {
     "npmrc-export": "./scripts/npmrc-export.js",
+    "npmrc-resolve-cwd": "./scripts/npmrc-resolve-cwd.js",
     "npmrc-write-cwd": "./scripts/npmrc-write-cwd.js"
   },
   "scripts": {

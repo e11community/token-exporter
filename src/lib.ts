@@ -1,9 +1,11 @@
-import os = require('os')
+import findUp = require('find-up')
 import fs = require('fs')
+import os = require('os')
 import path = require('path')
 import str = require('./string.js')
 import YAML = require('yaml')
 import { Writable } from 'stream'
+import { deepStrictEqual } from 'assert'
 
 export class Registry {
   key: string
@@ -123,6 +125,7 @@ function writeNpmrc(registries: Map<string, Registry>, stream: Writable): void {
       stream.write(`${registry.location}:_authToken=${registry.token}\n\n`)
     }
   })
+  stream.end()
 }
 
 export function writeLocalNpmrc(): void {
@@ -131,4 +134,37 @@ export function writeLocalNpmrc(): void {
 
 export function findAndGenerate(): void {
   generateExportScript(findTokensFromNpmrc())
+}
+
+
+export function resolveLocalNpmrc(): void {
+  const npmrcSeek: string = '.npmrc'
+  const npmrcLocal: string = './.npmrc'
+  const npmrcDerived: string = './.npmrc.derived'
+
+  // Find
+  let npmrcFound: string | undefined = findUp.findUpSync(npmrcSeek)
+  if (!npmrcFound || !fs.existsSync(npmrcFound)) {
+    console.log("No .npmrc found from here on up.")
+    return
+  }
+
+  // Read
+  const lines: string[] = fs.readFileSync(npmrcFound, 'utf8')
+    .split('\n')
+    .map(line => line.trim())
+
+  // Resolve and write
+  const stream: Writable = fs.createWriteStream(npmrcDerived)
+  lines.forEach(line => {
+    let resolvedLine = str.resolveShellTemplate(line)
+    stream.write(resolvedLine)
+  })
+  stream.end()
+
+  // File swap
+  if (fs.existsSync(npmrcLocal)) {
+    fs.rmSync(npmrcLocal)
+  }
+  fs.copyFileSync(npmrcDerived, npmrcLocal)
 }

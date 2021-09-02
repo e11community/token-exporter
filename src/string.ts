@@ -53,7 +53,7 @@ export function toEnvarCase(s: string): string {
   return words.join('_')
 }
 
-export function replaceEnvVariables(value, { env }) {
+export function replaceEnvVariables(value: string, {env}: {env: {[key: string]: string | undefined}}) {
   const regex = /\${(?<variableName>[\d\w_]+)(?<colon>:)?(?:-(?<fallback>[^}]*))?}/g;
   return value.replace(regex, (...args) => {
       const { variableName, colon, fallback } = args[args.length - 1];

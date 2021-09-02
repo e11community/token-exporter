@@ -5,7 +5,7 @@ import path = require('path')
 import str = require('./string.js')
 import YAML = require('yaml')
 import { Writable } from 'stream'
-import findUp = require('find-up')
+//import findUp = require('find-up')
 //import { deepStrictEqual } from 'assert'
 
 export class Registry {
@@ -196,16 +196,15 @@ export function resolveLocalNpmrc(): void {
     .map(line => line.trim())
 
   // Resolve and write
-  const stream: Writable = fs.createWriteStream(npmrcDerived)
+  const fd: number = fs.openSync(npmrcDerived, 'w')
   lines.forEach(line => {
     let resolvedLine = str.resolveShellTemplate(line)
-    stream.write(resolvedLine)
+    fs.writeSync(fd, resolvedLine + "\n")
   })
-  stream.end()
-
+  
   // File swap
   if (fs.existsSync(npmrcLocal)) {
-    fs.rmSync(npmrcLocal)
+    fs.unlinkSync(npmrcLocal)
   }
   fs.copyFileSync(npmrcDerived, npmrcLocal)
 }

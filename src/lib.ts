@@ -1,11 +1,12 @@
-import findUp = require('find-up')
+//import findUp = require('find-up')
 import fs = require('fs')
 import os = require('os')
 import path = require('path')
 import str = require('./string.js')
 import YAML = require('yaml')
 import { Writable } from 'stream'
-import { deepStrictEqual } from 'assert'
+import findUp = require('find-up')
+//import { deepStrictEqual } from 'assert'
 
 export class Registry {
   key: string
@@ -136,6 +137,46 @@ export function findAndGenerate(): void {
   generateExportScript(findTokensFromNpmrc())
 }
 
+function makeBackTrack(back: number): string {
+  if (back <= 0) {
+    return ''
+  }
+
+  let ret = '..'
+  for (let i = 1; i < back; ++i) {
+    ret = path.join('..', ret)
+  }
+
+  return ret
+}
+
+export function isRoot(filePath: string): boolean {
+  return path.resolve(filePath) == '/'
+}
+
+export function isDirAccessible(filePath: string): boolean {
+  try {
+    fs.accessSync(filePath, fs.constants.X_OK | fs.constants.R_OK)
+  }
+  catch (e) {
+    return false
+  }
+
+  return true
+}
+
+export function findUp(pattern: string, back: number = 0): string | undefined {
+  if (fs.existsSync(pattern)) {
+    return path.resolve(pattern)
+  }
+
+  const track = makeBackTrack(++back)
+  if (!isRoot(track) && fs.existsSync(track) && isDirAccessible(track)) {
+    return findUp(path.join(track, pattern), back)
+  }
+
+  return undefined
+}
 
 export function resolveLocalNpmrc(): void {
   const npmrcSeek: string = '.npmrc'
@@ -143,7 +184,7 @@ export function resolveLocalNpmrc(): void {
   const npmrcDerived: string = './.npmrc.derived'
 
   // Find
-  let npmrcFound: string | undefined = findUp.findUpSync(npmrcSeek)
+  let npmrcFound: string | undefined = findUp(npmrcSeek)
   if (!npmrcFound || !fs.existsSync(npmrcFound)) {
     console.log("No .npmrc found from here on up.")
     return

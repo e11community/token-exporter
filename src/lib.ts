@@ -1,10 +1,11 @@
+import findUp = require('find-up')
+import fs = require('fs')
+import os = require('os')
+import path = require('path')
 import str = require('./string.js')
-import findUp from 'find-up'
-import fs from 'fs'
-import os from 'os'
-import path from 'path'
+import YAML = require('yaml')
 import { Writable } from 'stream'
-import YAML from 'yaml'
+import { deepStrictEqual } from 'assert'
 
 export class Registry {
   key: string

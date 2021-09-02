@@ -1,4 +1,4 @@
-import { miscUtils } from '@yarnpkg/core'
+//import { miscUtils } from '@yarnpkg/core'
 
 export function isNumeral(s: string): boolean {
   if (!s) {
@@ -53,8 +53,24 @@ export function toEnvarCase(s: string): string {
   return words.join('_')
 }
 
+export function replaceEnvVariables(value, { env }) {
+  const regex = /\${(?<variableName>[\d\w_]+)(?<colon>:)?(?:-(?<fallback>[^}]*))?}/g;
+  return value.replace(regex, (...args) => {
+      const { variableName, colon, fallback } = args[args.length - 1];
+      const variableExist = Object.prototype.hasOwnProperty.call(env, variableName);
+      const variableValue = env[variableName];
+      if (variableValue)
+          return variableValue;
+      if (variableExist && !colon)
+          return variableValue;
+      if (fallback != null)
+          return fallback;
+      throw new Error(`Environment variable not found (${variableName})`);
+  });
+}
+
 export function resolveShellTemplate(s: string): string {
-  return miscUtils.replaceEnvVariables(s, {
+  return replaceEnvVariables(s, {
     env: process.env,
   });
 }

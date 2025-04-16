@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "lib": ["es2020.string"],
+    "module": "CommonJS",
     "outDir": "build",
     "rootDir": ".",
-    "target": "es2020"
+    "target": "ES2024"
   },
   "exclude": ["node_modules", "build"],
   "extends": "./node_modules/gts/tsconfig-google.json"
